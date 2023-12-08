@@ -41,7 +41,8 @@ public class ArcPlaceTransition extends Arc {
 
 	public void fireArc() throws PlaceException {
 		this.place.removeTokens(this.weight);	// Remove tokens from the place when the arc is fired
-
+		
+		System.out.println("fired3 weight:"+this.weight);
 	}
 
 

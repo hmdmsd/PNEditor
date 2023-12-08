@@ -23,18 +23,19 @@ public class PetriNetAdapter extends org.pneditor.petrinet.PetriNetInterface {
     @Override
     public AbstractPlace addPlace() {
         try {
-            petriNet.addPlace(0);
-        } catch (PlaceException e) {
-            // Handle exception accordingly
-        }
-        // Replace with your logic to create a new AbstractPlace object
+            return new PlaceAdapter("place");
+        } catch (PlaceException e) {}
         return null;
     }
 
     @Override
     public AbstractTransition addTransition() {
-        petriNet.addTransition();
-        // Replace with your logic to create a new AbstractTransition object
+    	try {
+			return new TransitionAdapter("transition");
+		} catch (TransitionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
         return null;
     }
 
@@ -45,7 +46,8 @@ public class PetriNetAdapter extends org.pneditor.petrinet.PetriNetInterface {
     		PlaceAdapter place = (PlaceAdapter) source;
     		TransitionAdapter transition = (TransitionAdapter) destination;
     		try {
-				petriNet.addArcPlaceTransition(place.adaptee, transition.transition, 0, false, false);
+				petriNet.addArcPlaceTransition(place.place, transition.transition, 0, false, false);
+				return new ArcAdapter(new ArcPlaceTransition(0, false, false),source,destination);
 			} catch (ArcException | PlaceException | TransitionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -55,7 +57,8 @@ public class PetriNetAdapter extends org.pneditor.petrinet.PetriNetInterface {
     		TransitionAdapter transition = (TransitionAdapter) source;
     		PlaceAdapter place = (PlaceAdapter) destination;
     		try {
-				petriNet.addArcTransitionPlace(place.adaptee, transition.transition,0);
+				petriNet.addArcTransitionPlace(place.place, transition.transition,0);
+				return new ArcAdapter(new ArcTransitionPlace(0),source,destination);
 			} catch (ArcException | PlaceException | TransitionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -69,7 +72,8 @@ public class PetriNetAdapter extends org.pneditor.petrinet.PetriNetInterface {
     		PlaceAdapter adaptedPlace = (PlaceAdapter) place;
     		TransitionAdapter adaptedTransition = (TransitionAdapter) transition;
     		try {
-				petriNet.addArcPlaceTransition(adaptedPlace.adaptee, adaptedTransition.transition, 0, true, false);
+				petriNet.addArcPlaceTransition(adaptedPlace.place, adaptedTransition.transition, 0, true, false);
+				return new ArcAdapter(new ArcPlaceTransition(0, true, false),place,transition);
 			} catch (ArcException | PlaceException | TransitionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -82,7 +86,8 @@ public class PetriNetAdapter extends org.pneditor.petrinet.PetriNetInterface {
 		PlaceAdapter adaptedPlace = (PlaceAdapter) place;
 		TransitionAdapter adaptedTransition = (TransitionAdapter) transition;
 		try {
-			petriNet.addArcPlaceTransition(adaptedPlace.adaptee, adaptedTransition.transition, 0, false, true);
+			petriNet.addArcPlaceTransition(adaptedPlace.place, adaptedTransition.transition, 0, false, true);
+			return new ArcAdapter(new ArcPlaceTransition(0, false, true),place,transition);
 		} catch (ArcException | PlaceException | TransitionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,7 +98,7 @@ public class PetriNetAdapter extends org.pneditor.petrinet.PetriNetInterface {
     @Override
     public void removePlace(AbstractPlace place) {
     	PlaceAdapter adaptedPlace = (PlaceAdapter) place;
-        petriNet.removePlace(adaptedPlace.adaptee);
+        petriNet.removePlace(adaptedPlace.place);
     }
 
     @Override

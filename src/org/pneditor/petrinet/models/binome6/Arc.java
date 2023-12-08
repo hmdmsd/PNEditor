@@ -14,7 +14,7 @@ public abstract class Arc {
 	}
 	
 	public Arc(int weight) throws ArcException {
-		if (weight<=0) {
+		if (weight<0) {
 			throw new ArcException();	// Throw an exception for non-positive weight
 		} else {
 			this.weight =weight;

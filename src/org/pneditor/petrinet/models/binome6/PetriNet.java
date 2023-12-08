@@ -88,6 +88,7 @@ public class PetriNet implements InterfacePetriNet {
     public void step(Transition t) throws PlaceException, ArcException {
         if (t.isFirable()) {
             t.fire();
+            System.out.println("fired!");
         } else {
             System.out.println("Transition is not firable");
         }

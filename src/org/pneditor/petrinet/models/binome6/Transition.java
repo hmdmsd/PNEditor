@@ -28,9 +28,11 @@ public class Transition {
 	public void fire() throws PlaceException {
 		for (ArcPlaceTransition a : incomingArcs) {
 			a.fireArc();	// Fire incoming arcs
+			System.out.println("fired s2 with weight"+a.getWeight());
 		}
 		for (ArcTransitionPlace a : outgoingArcs) {
 			a.fireArc();	// Fire outgoing arcs
+			System.out.println("fired s2 with weight"+a.getWeight());
 		}
 	}
 	
@@ -50,19 +52,19 @@ public class Transition {
 				throw new TransitionException();	// Throw an exception if a similar outgoing arc is found
 			}
 		} else {
-			boolean findSimilar = false;
-			int i=0;
-			while ((! findSimilar) && (i<incomingArcs.size())) {
-				if (incomingArcs.get(i).hasSameProperties(a)) {
-					findSimilar = true;
-				}
-				i++;
-			}
-			if (! findSimilar) {
+			//boolean findSimilar = false;
+			//int i=0;
+			//while ((! findSimilar) && (i<incomingArcs.size())) {
+			//	if (incomingArcs.get(i).hasSameProperties(a)) {
+			//		findSimilar = true;
+			//	}
+			//	i++;
+			//}
+			//if (! findSimilar) {
 				incomingArcs.add((ArcPlaceTransition) a);	// Add an incoming arc
-			} else {
-				throw new TransitionException();	// Throw an exception if a similar incoming arc is found
-			}
+			//} else {
+			//	throw new TransitionException();	// Throw an exception if a similar incoming arc is found
+			//}
 		}
 	}
 	

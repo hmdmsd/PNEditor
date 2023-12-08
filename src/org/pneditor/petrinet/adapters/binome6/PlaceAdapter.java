@@ -5,18 +5,17 @@ import org.pneditor.petrinet.models.binome6.Place;
 import org.pneditor.petrinet.models.binome6.PlaceException;
 
 public class PlaceAdapter extends AbstractPlace {
-    public Place adaptee;
+    public Place place;
 
-    public PlaceAdapter(Place adaptee) {
-        super("");
-        this.adaptee = adaptee;
-        System.out.println(this.getId());
+    public PlaceAdapter(String label) throws PlaceException {
+        super(label);
+        this.place = new Place(0);
     }
 
     @Override
     public void addToken() {
         try {
-            adaptee.addTokens(1);
+            place.addTokens(1);
         } catch (PlaceException e) {
             e.printStackTrace(); // Handle or log the exception accordingly
         }
@@ -25,7 +24,7 @@ public class PlaceAdapter extends AbstractPlace {
     @Override
     public void removeToken() {
         try {
-            adaptee.removeTokens(1);
+            place.removeTokens(1);
         } catch (PlaceException e) {
             e.printStackTrace(); // Handle or log the exception accordingly
         }
@@ -33,14 +32,14 @@ public class PlaceAdapter extends AbstractPlace {
 
     @Override
     public int getTokens() {
-        return adaptee.getTokens();
+        return place.getTokens();
     }
 
     @Override
     public void setTokens(int tokens) {
     	try {
-			adaptee.removeTokens(adaptee.getTokens());
-			adaptee.addTokens(tokens);
+			place.removeTokens(place.getTokens());
+			place.addTokens(tokens);
 		} catch (PlaceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,6 +54,6 @@ public class PlaceAdapter extends AbstractPlace {
     }
     
     Place getModelObject() {
-        return this.adaptee;
+        return this.place;
      }
 }
